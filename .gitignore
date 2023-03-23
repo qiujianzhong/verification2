@@ -1,0 +1,9 @@
+/vendor
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+*.dat
+*.log
+/verification_shanxi
+/verification

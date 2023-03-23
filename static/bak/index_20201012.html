@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>获取用户验证码3.0</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #page-content {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #result {
+            font-size: 1.2em;
+            color: red;
+        }
+    </style>
+    <style type="text/css">
+        #footer {
+                height: 40px;
+                line-height: 40px;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                background: #333;
+                color: #fff;
+                font-family: Arial;
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+    </style>
+
+    <script type="text/javascript" src="/static/clipboard.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <article id="page-content">
+        <section style="text-align: center">
+            <header>
+                <h1>♥请输入手机号，获取最新的验证码/短信♥</h1>
+            </header>
+           
+            <input style="width: 100px;" id="mobile_number" name="mobile" type="text" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength=11></input>
+            <input type="radio" name="project" value="credit" checked>信贷
+            <button type="button" id="submit">查验证码</button>
+            <button type="button" id="submit1">查短信</button>
+            <button class="btn" data-clipboard-action="copy" data-clipboard-target="#result">复制内容</button>
+
+            <footer>
+                <p id="result"></p>
+            </footer>
+     
+            <div id="footer">CopyRight@qiujianzhong</div>
+        </section>
+    </article>
+</body>
+
+
+<script>
+    var clipboard = new ClipboardJS('.btn');
+
+    clipboard.on('success', function(e) {
+        console.log(e);
+       
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        var URL = "";
+        $('#submit').click(function() {
+            doVerify();
+        });
+
+        $('#submit1').click(function() {
+            doSms();
+        });
+
+        $(function () {
+            document.onkeydown = function (ev) {
+                var ev = ev || window.event || arguments.callee.caller.arguments[0];
+                if (ev && ev.keyCode == 13) {
+                    doVerify();
+                }
+            }
+        });
+
+        $(function () {
+            document.onkeydown = function (ev) {
+                var ev = ev || window.event || arguments.callee.caller.arguments[0];
+                if (ev && ev.keyCode == 13) {
+                    doSms();
+                }
+            }
+        });
+
+        function doVerify() {
+            $.ajax({
+                type: "GET",
+                url: URL + "/code",
+                data: {
+                    "mobile": $('#mobile_number').val(),
+                    "project": $('input[name=project]:checked').val()
+        },
+                success: function(data) {
+                    $('#result').text(data);
+                   
+                    if (data.length == 0) {
+                        data = "无法查询到该验证码，请确认后重试！";
+                    }
+                    else{
+                        data = data;
+                    }
+                    $('#result').text(data); 
+                },
+                error: function() {
+                    $('#result').text("无法连接网络，请联系网络管理员！");
+                }
+            });
+        }
+
+        function doSms() {
+            $.ajax({
+                type: "GET",
+                url: URL + "/sms",
+                data: {
+                    "mobile": $('#mobile_number').val(),
+                    "project": $('input[name=project]:checked').val()
+        },
+                success: function(data) {
+                    $('#result').text(data);
+                   
+                    if (data.length == 0) {
+                        data = "无法查询到该验证码，请确认后重试！";
+                    }
+                    else{
+                        data = data;
+                    }
+                    $('#result').text(data); 
+                },
+                error: function() {
+                    $('#result').text("无法连接网络，请联系网络管理员！");
+                }
+            });
+        }
+    });
+
+
+    </script>
+
+</html>
