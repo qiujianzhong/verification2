@@ -1,0 +1,12 @@
+{
+    "//": "if you change this file, restart server to take effect.",
+    "port": "8889",
+    "driver_name": "mysql",
+    "sql_code": "SELECT code as code,createTime as createTime FROM `t_wd_sms_log` WHERE `code` IS NOT NULL AND TIMEDIFF(NOW(), createTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY id DESC  LIMIT 1",
+    "sql_sms": "SELECT smsContent as smsContent,createTime as createTime FROM `t_wd_sms_log` WHERE `smsContent` IS NOT NULL AND TIMEDIFF(NOW(), createTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY id DESC  LIMIT 1",
+    "sql_conn": [
+        "root:123456@tcp(192.168.1.1:3306)/micro_credit?timeout=5s&readTimeout=2s",
+        "root:123456@tcp(192.168.1.2:3306)/micro_credit?timeout=5s&readTimeout=2s",
+        "root:123456@tcp(192.168.1.3:3306)/micro_credit?timeout=5s&readTimeout=2s"       
+    ]
+}

@@ -71,22 +71,7 @@
             <p id="result" onclick="copyToClipboard(this)"></p>
         </section>
         <br /> <br />
-
-        <section style="text-align: center">
-
-            <h1>♥根据订单号，修改订单登录手机号♥</h1>
-            订单号：
-            <input style="width: 170px;" id="orderid" name="orderid" type="text" />
-            <button type="button" id="submit3">查手机</button>
-            <input style="width: 100px;" id="mobile2" name="mobile2" type="text" />
-            <button type="button" id="submit4">修改手机</button>
-            <p id="result2"></p>
-        </section>
-        <br /> <br />
-
-
-
-        <section style="text-align: center">
+       
 
             <div id="footer">
                 CopyRight@qiujianzhong
@@ -114,13 +99,6 @@
                         doSms();
                     });
 
-                    $('#submit3').click(function () {
-                        getmobile();
-                    });
-
-                    $('#submit4').click(function () {
-                        setmobile();
-                    });
 
                     function doVerify() {
 
@@ -187,80 +165,7 @@
                         });
                     }
 
-                    function getmobile() {
-                        if ($('#orderid').val().length < 15) {
-                            $('#result2').text("请输入正确的订单号");
-                            $('#orderid').focus();
-                            return false;
-                        } else {
-                            $('#result2').text("");
-                        }
-                        $.ajax({
-                            type: "GET",
-                            url: URL + "/getmobile",
-                            data: {
-                                "project": $('input[name=project1]:checked').val(),
-                                "orderid": $('#orderid').val(),
-                            },
-                            success: function (data) {
-                                $("#mobile2").attr("value", data);
-
-                                if (data.length == 0) {
-                                    data = "无法查询到该订单，请确认后重试！";
-                                }
-                                else {
-                                    data = data;
-                                }
-
-
-                                $("#mobile2").attr("value", data);
-                            },
-                            error: function () {
-                                $('#result2').text("无法连接网络，请联系网络管理员！");
-                            }
-                        });
-                    }
-
-                    function setmobile() {
-                        if ($('#orderid').val().length < 15) {
-                            $('#result2').text("请输入正确的订单号");
-                            $('#orderid').focus();
-                            return false;
-                        } else {
-                            $('#result2').text("");
-                        }
-                        if ($('#mobile2').val().length != 11) {
-                            $('#result2').text("请输入正确的手机号码");
-                            $('#mobile2').focus();
-                            return false;
-                        } else {
-                            $('#result2').text("");
-                        }
-
-                        $.ajax({
-                            type: "GET",
-                            url: URL + "/setmobile",
-                            data: {
-                                "project": $('input[name=project1]:checked').val(),
-                                "orderid": $('#orderid').val(),
-                                "mobile": $('#mobile2').val(),
-                            },
-                            success: function (data) {
-                                $('#result2').text(data);
-
-                                if (data.length == 0) {
-                                    data = "无法修改，请确认后重试！";
-                                }
-                                else {
-                                    data = data;
-                                }
-                                $('#result2').text(data);
-                            },
-                            error: function () {
-                                $('#result').text("无法连接网络，请联系网络管理员！");
-                            }
-                        });
-                    }
+             
 
                 });
 

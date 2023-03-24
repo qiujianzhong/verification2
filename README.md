@@ -2,9 +2,10 @@
 > 可以自动获取多个环境的验证码，并且取最新的返回到页面。
 
 # 使用
-修改verification2.go中的数据库连接
+重命名server.json.example 为 server.json
+修改数据库连接和sql
 
-编译
+编译（或者直接使用release里面的版本）
 ```code
 #编译Linux版本
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build verification2.go
@@ -17,7 +18,7 @@ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build verification2.go
 #Linux后台运行
 nohub ./verification2 &
 
-打开环境链接 http://ip:8889/
+打开环境链接 http://{ip}:{port}/
 
 
 # 界面
