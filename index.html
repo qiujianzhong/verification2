@@ -2,7 +2,7 @@
 <html lang="zh">
 
 <head>
-    <title>获取用户验证码5.1</title>
+    <title>{{.Name}}获取验证码</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
@@ -64,7 +64,7 @@
             </header>
             <input style="width: 100px;" id="mobile_number" name="mobile" type="text"
                 onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="11" />
-            <input type="radio" name="project" value="credit" checked="" />信贷
+            <input type="radio" name="project" value="credit" checked="" />{{.Name}}
             <button type="button" id="submit">查验证码</button>
             <button type="button" id="submit1">查短信</button>
             <button class="btn" data-clipboard-action="copy" data-clipboard-target="#result">复制内容</button>

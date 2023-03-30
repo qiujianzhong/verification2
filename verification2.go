@@ -20,6 +20,7 @@ var conf DBConf
 var file_locker sync.Mutex //config file locker
 
 type DBConf struct {
+	Name       string   `json:"name"`
 	Port       string   `json:"port"`
 	DriverName string   `json:"driver_name"`
 	SQLCode    string   `json:"sql_code"`
@@ -78,7 +79,9 @@ func main() {
 func index(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	t, _ := template.ParseFiles("index.html") //读取首页的html
-	log.Println(t.Execute(w, nil))
+	m := make(map[string]interface{})
+	m["Name"] = conf.Name
+	log.Println(t.Execute(w, m))
 }
 
 //读取验证码
