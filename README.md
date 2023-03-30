@@ -5,7 +5,7 @@
 重命名server.json.example 为 server.json
 修改数据库连接和sql
 
-编译（或者直接使用release里面的版本）
+编译（或者直接使用bin文件夹里面的版本）
 ```code
 #编译Linux版本
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build  -o ./bin/verification2_linux verification2.go
