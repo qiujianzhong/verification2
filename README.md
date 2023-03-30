@@ -8,11 +8,11 @@
 编译（或者直接使用release里面的版本）
 ```code
 #编译Linux版本
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build verification2.go
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build  -o ./bin/verification2_linux verification2.go
 #编译mac版本
-CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build verification2.go
+CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build  -o ./bin/verification2_mac verification2.go
 #编译windoes版本
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build verification2.go
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build  -o ./bin/verification2.exe verification2.go
 ```
 # 运行
 #Linux后台运行
