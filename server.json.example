@@ -3,8 +3,10 @@
     "name": "信贷",
     "port": "8889",
     "driver_name": "mysql",
-    "sql_code": "SELECT code as code,createTime as createTime FROM `t_wd_sms_log` WHERE `code` IS NOT NULL AND TIMEDIFF(NOW(), createTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY id DESC  LIMIT 1",
-    "sql_sms": "SELECT smsContent as smsContent,createTime as createTime FROM `t_wd_sms_log` WHERE `smsContent` IS NOT NULL AND TIMEDIFF(NOW(), createTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY id DESC  LIMIT 1",
+    "//": "查询验证码的SQL",
+    "sql_code": "SELECT code,expireTime  FROM `t_wd_sms_log` WHERE `code` IS NOT NULL AND TIMEDIFF(NOW(), expireTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY expireTime DESC  LIMIT 1",
+    "//": "查询短信的SQL，可以和上面SQL相同",
+    "sql_sms": "SELECT smsContent ,expireTime  FROM `t_wd_sms_log` WHERE `smsContent` IS NOT NULL AND TIMEDIFF(NOW(), expireTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY expireTime DESC  LIMIT 1",
     "sql_conn": [
         "root:123456@tcp(192.168.1.1:3306)/micro_credit?timeout=5s&readTimeout=2s",
         "root:123456@tcp(192.168.1.2:3306)/micro_credit?timeout=5s&readTimeout=2s",
