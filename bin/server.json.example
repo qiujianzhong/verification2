@@ -1,0 +1,17 @@
+{
+    "//": "if you change this file, restart server to take effect.",
+    "name": "gate.io",
+    "ip": "172.16.226.184",
+    "port": "8889",
+    "rpc_url": "http://118.178.105.202:8401/spotme",
+    "driver_name": "mysql",
+    "conn_dev1": [
+        "root:123@tcp(172.16.170.255:3306)/gateio?timeout=5s&readTimeout=2s"
+    ],
+    "conn_dev3": [
+        "root:123@tcp(172.16.170.255:3306)/gateio?timeout=5s&readTimeout=2s"
+    ],
+    "conn_dev5": [
+        "root:123@tcp(172.16.170.255:3306)/gateio?timeout=5s&readTimeout=2s"
+    ]
+}

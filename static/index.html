@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title>测试工具集合</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        #page-content1 {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <style type="text/css">
+        #footer {
+            height: 30px;
+            line-height: 30px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            /* background: #fbf8f8; */
+            color: #0745f2;
+            /* font-family: Arial; */
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 0.8em;
+            color: red;
+        }
+
+
+        table {
+            border: 1px solid;
+            margin: left;
+            width: 900px;
+        }
+
+
+        td,
+        th {
+            text-align: center;
+            border: 1px solid;
+            /* width: auto; */
+            height: 1px;
+
+        }
+
+        div {
+            text-align: left;
+            margin: 50px;
+        }
+    </style>
+    <script type="text/javascript" src="/static/clipboard.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/layer.js"></script>
+</head>
+
+<body>
+    <h1>测试工具集合</h1>
+    <article id="page-content">
+        <section style="text-align: left">
+            环境选择
+            <input type="radio" name="dev" value="dev1" />dev1
+            <input type="radio" name="dev" value="dev3" checked="" />dev3
+            <input type="radio" name="dev" value="dev5" />dev5
+            <br> <br>
+            <h1>信息查询 </h1>
+            <input style="width: 200px;" id="query1" name="query1" type="text" value="" maxlength="50"
+                placeholder="请输入UID/邮箱/手机/用户名" />
+            <button type="button" id="submit">查询</button><br>
+            <table>
+                <tr>
+                    <th style="width: 60px">uid</th>
+                    <th style="width: 120px">邮箱</th>
+                    <th style="width: 80px">手机</th>
+                    <th style="width: 100px">用户名</th>
+                    <th style="width: 60px">用户等级</th>
+                    <th style="width: 60px">实名认证</th>
+                    <th style="width: 100px">操作</th>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="result1" class="results" onclick="copyToClipboard(this)"></p>
+                    </td>
+                    <td>
+                        <p id="result2" class="results" onclick="copyToClipboard(this)"></p>
+                    </td>
+                    <td>
+                        <p id="result3" class="results" onclick="copyToClipboard(this)"></p>
+                    </td>
+                    <td>
+                        <p id="result4" class="results" onclick="copyToClipboard(this)"></p>
+                    </td>
+                    <td>
+
+                        <p id="result5" class="results" onclick="copyToClipboard(this)"></p>
+                    </td>
+                    <td>
+
+                        <p id="result6" class="results" onclick="copyToClipboard(this)"></p>
+                    </td>
+                    <td>
+                        <button type="button" id="submit_reset">重置密码</button>
+                        <button type="button" id="submit_verified">实名认证</button>
+                    </td>
+                </tr>
+            </table>
+            <td>
+                <p id="result" class="results"></p>
+            </td>
+        </section>
+
+        <br />
+        <section style="text-align: left">
+            <header>
+                <h1>会员充值 </h1>
+            </header>
+            币种：<input style="width: 100px;" id="coin" name="coin" type="text" value="USDT" maxlength="11" />
+            金额：<input style="width: 100px;" id="amount" name="amount" type="text" value="10000"
+                onkeyup="value=value.replace(/[^\d|.]/g,'')" maxlength="11" />
+
+            <br><button type="button" id="submit_deposit">充值</button>
+            <!-- <button type="button" id="submit">提现</button> -->
+            <p id="result_deposit" class="results" onclick="copyToClipboard(this)"></p>
+        </section>
+        <br />
+
+
+
+        <section style="text-align: left">
+            <header>
+                <h1>调整会员等级</h1>
+            </header>
+            目标等级<input style="width: 200px;" id="tier" name="tier" type="text" value="15"
+                onkeyup="value=value.replace(/[^\d|.]/g,'')" maxlength="11" />
+
+            <br><button type="button" id="submit_tier">调整</button>
+            <p id="result_tier" onclick="copyToClipboard(this)"></p>
+        </section>
+        <br />
+
+        <section style="text-align: left">
+            <header>
+                <h1>创建会员</h1>
+            </header>
+            用户前缀：<input style="width: 200px;" id="user1" name="user1" type="text" value="gtest"
+                placeholder="如果不填随机生成" />
+            <br>手机前缀：<input style="width: 200px;" id="phone1" name="phone1" type="text" value="" placeholder="如果不填随机生成"
+                onkeyup="value=value.replace(/[^\d|.]/g,'')" maxlength="11" />
+            <br>邮箱后缀：<input style="width: 200px;" id="mail1" name="mail1" type="text" value="@gmail.com" />
+            <br><button type="button" id="submit_add">创建</button>
+            <p id="result_add" class="results"></p>
+        </section>
+        <br />
+        <section style="text-align: left">
+            <header>
+                <h1>修改标记价格</h1>
+            </header>
+
+            市场：<input style="width: 100px;" id="market" name="market" type="text" value="BTC_USDT"
+                maxlength="11" />
+            价格：<input style="width: 100px;" id="price" name="price" type="text" value="29500"
+                onkeyup="value=value.replace(/[^\d|.]/g,'')" maxlength="11" />
+            <br><button type="button" id="submit_price">修改</button>
+            <p id="result_price" class="results" onclick="copyToClipboard(this)"></p>
+        </section>
+
+        <br /><br /><br /><br />
+
+
+        <div id="footer">
+            如果你有想实现的功能/工具，请联系Tim/Anders
+        </div>
+        <script>
+            var clipboard = new ClipboardJS('.btn');
+
+            clipboard.on('success', function (e) {
+                console.log(e);
+
+            });
+
+            clipboard.on('error', function (e) {
+                console.log(e);
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                var URL = "";
+                $('#submit').click(function () {
+                    doquery();
+                });
+
+                $('#submit_reset').click(function () {
+                    doreset();
+                });
+                $('#submit_verified').click(function () {
+                    doverified();
+                });
+                $('#submit_tier').click(function () {
+                    dotier();
+                });
+                $('#submit_deposit').click(function () {
+                    deposit();
+                });
+                $('#submit_add').click(function () {
+                    user_add();
+                });
+                $('#submit_price').click(function () {
+                    price();
+                });
+
+
+                function doquery() {
+
+                    if ($('#query1').val().length == 0) {
+                        $('#result').text("请输入");
+                        $('#query1').focus();
+                        return false;
+                    } else {
+                        $('#result').text("");
+                        $('#result1').text("");
+                        $('#result2').text("");
+                        $('#result3').text("");
+                        $('#result4').text("");
+                        $('#result5').text("");
+                        $('#result6').text("");
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: URL + "/query",
+                        data: {
+                            "query1": $('#query1').val(),
+                            "dev": $('input[name=dev]:checked').val(),
+                        },
+                        success: function (data) {
+                            // $('#result1').text(data);
+
+                            if (data.length == 0) {
+                                data = "未查询到，请确认后重试！";
+                                $('#result').text(data);
+                            }
+                            else {
+                                var strJSON = data;//得到的JSON
+                                var obj = new Function("return" + strJSON)();//转换后的JSON对象
+                                if (obj.Info == "ok") {
+                                    $('#result').text("已查询");
+                                    $('#result1').text(obj.Uid);
+                                    $('#result2').text(obj.Mail);
+                                    $('#result3').text(obj.Phone);
+                                    $('#result4').text(obj.Nickname);
+                                    $('#result5').text(obj.Tier);
+                                    $('#result6').text(obj.Verified);
+                                    document.getElementById("submit_reset").disabled = false;
+
+                                }
+                                else { $('#result').text(data); }
+                            }
+
+                        },
+                        error: function () {
+                            $('#result').text("无法连接网络，请联系网络管理员！");
+                        }
+                    });
+                }
+
+                function doreset() {
+                    if ($('#query1').val().length == 0) {
+                        $('#result').text("请输入");
+                        $('#query1').focus();
+                        return false;
+                    } else {
+                        $('#result').text("");
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: URL + "/reset",
+                        data: {
+                            "query1": $('#query1').val(),
+                            "dev": $('input[name=dev]:checked').val(),
+                        },
+                        success: function (data) {
+                            if (data.length == 0) {
+                                data = "重置失败，请稍后重试！";
+                                $('#result').text(data);
+                            }
+                            else {
+                                var strJSON = data;//得到的JSON
+                                var obj = new Function("return" + strJSON)();//转换后的JSON对象
+                                if (obj.Info != "") {
+                                    $('#result').text(obj.Info);
+                                }
+                                else { $('#result').text(data); }
+
+                            }
+
+                        },
+                        error: function () {
+                            $('#result').text("无法连接网络，请联系网络管理员！");
+                        }
+                    });
+                }
+
+                function doverified() {
+                    if ($('#query1').val().length == 0) {
+                        $('#result').text("请输入");
+                        $('#query1').focus();
+                        return false;
+                    } else {
+                        $('#result').text("");
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: URL + "/verified",
+                        data: {
+                            "query1": $('#query1').val(),
+                            "dev": $('input[name=dev]:checked').val(),
+                        },
+                        success: function (data) {
+                            if (data.length == 0) {
+                                data = "重置失败，请稍后重试！";
+                                $('#result').text(data);
+                            }
+                            else {
+                                var strJSON = data;//得到的JSON
+                                var obj = new Function("return" + strJSON)();//转换后的JSON对象
+                                if (obj.Info != "") {
+                                    $('#result').text(obj.Info);
+                                }
+                                else { $('#result').text(data); }
+
+                            }
+
+                        },
+                        error: function () {
+                            $('#result').text("无法连接网络，请联系网络管理员！");
+                        }
+                    });
+                }
+
+                function dotier() {
+                    if ($('#query1').val().length == 0) {
+                        $('#result').text("请输入会员信息并查询");
+                        $('#query1').focus();
+                        return false;
+                    } else {
+                        $('#result').text("");
+                    }
+                    if ($('#tier').val().length == 0) {
+                        $('#result_tier').text("请输入");
+                        $('#tier').focus();
+                        return false;
+                    } else {
+                        $('#result_tier').text("");
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: URL + "/tier",
+                        data: {
+                            "tier": $('#tier').val(),
+                            "query1": $('#query1').val(),
+                            "dev": $('input[name=dev]:checked').val(),
+                        },
+                        success: function (data) {
+                            if (data.length == 0) {
+                                data = "重置失败，请稍后重试！";
+                                $('#result_tier').text(data);
+                            }
+                            else {
+                                var strJSON = data;//得到的JSON
+                                var obj = new Function("return" + strJSON)();//转换后的JSON对象
+                                if (obj.Info != "") {
+                                    $('#result_tier').text(obj.Info);
+                                }
+                                else { $('#result_tier').text(data); }
+
+                            }
+
+                        },
+                        error: function () {
+                            $('#result_tier').text("无法连接网络，请联系网络管理员！");
+                        }
+                    });
+                }
+
+                function deposit() {
+                    var label1 = document.getElementById("result1");
+                    var value1 = label1.innerText;
+                    if (value1.length == 0) {
+                        $('#result').text("请查询会员信息");
+                        $('#query1').focus();
+                        return false;
+                    } else {
+                        $('#result').text("");
+                    }
+                    if ($('#coin').val().length == 0 || $('#amount').length == 0) {
+                        $('#result_deposit').text("请输入");
+                        $('#coin').focus();
+                        return false;
+                    } else {
+                        $('#result_deposit').text("");
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: URL + "/deposit",
+                        data: {
+                            "amount": $('#amount').val(),
+                            "coin": $('#coin').val(),
+                            "query1": value1,
+                            "dev": $('input[name=dev]:checked').val(),
+                        },
+                        success: function (data) {
+                            if (data.length == 0) {
+                                data = "充值失败，请稍后重试！";
+                                $('#result_deposit').text(data);
+                            }
+                            else {
+                                $('#result_deposit').text(data);
+                            }
+
+                        },
+                        error: function () {
+                            $('#result_deposit').text("无法连接网络，请联系网络管理员！");
+                        }
+                    });
+                }
+
+                function user_add() {
+                    if ($('#mail1').val().length == 0) {
+                        $('#result_add').text("请输入邮箱");
+                        $('#mail1').focus();
+                        return false;
+                    } else {
+                        $('#result_add').text("");
+                    }
+
+                    $.ajax({
+                        type: "GET",
+                        url: URL + "/useradd",
+                        data: {
+                            "user": $('#user1').val(),
+                            "phone": $('#phone1').val(),
+                            "mail": $('#mail1').val(),
+                            "dev": $('input[name=dev]:checked').val(),
+                        },
+                        success: function (data) {
+                            if (data.length == 0) {
+                                data = "重置失败，请稍后重试！";
+                                $('#result_add').text(data);
+                            }
+                            else {
+                                $('#result_add').text(data);
+                            }
+
+                        },
+                        error: function () {
+                            $('#result_add').text("无法连接网络，请联系网络管理员！");
+                        }
+                    });
+                }
+
+                function price() {
+                    
+                    if ($('#market').val().length == 0 || $('#price').length == 0) {
+                        $('#result_price').text("请输入");
+                        $('#market').focus();
+                        return false;
+                    } else {
+                        $('#result_price').text("");
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: URL + "/price",
+                        data: {
+                            "market": $('#market').val(),
+                            "price": $('#price').val(),
+                            "dev": $('input[name=dev]:checked').val(),
+                        },
+                        success: function (data) {
+                            if (data.length == 0) {
+                                data = "更新失败，请稍后重试！";
+                                $('#result_price').text(data);
+                            }
+                            else {
+                                $('#result_price').text(data);
+                            }
+
+                        },
+                        error: function () {
+                            $('#result_price').text("无法连接网络，请联系网络管理员！");
+                        }
+                    });
+                }
+
+
+
+            });
+
+            function copyToClipboard(_that) {
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val($(_that).text()).select();
+                document.execCommand("copy");
+                $temp.remove();
+                layer.msg('复制成功', { offset: '80%', time: 1500 });
+                $('.clipboard').removeClass('red-border');
+                $(_that).addClass('red-border');
+            }
+        </script>
+</body>
+</html>

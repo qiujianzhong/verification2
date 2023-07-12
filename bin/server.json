@@ -1,15 +1,17 @@
 {
     "//": "if you change this file, restart server to take effect.",
-    "name": "信贷",
+    "name": "gate.io",
+    "ip": "172.16.226.184",
     "port": "8889",
+    "rpc_url": "http://118.178.105.202:8401/spotme",
     "driver_name": "mysql",
-    "//": "查询验证码的SQL",
-    "sql_code": "SELECT code,expireTime  FROM `t_wd_sms_log` WHERE `code` IS NOT NULL AND TIMEDIFF(NOW(), expireTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY expireTime DESC  LIMIT 1",
-    "//": "查询短信的SQL，可以和上面SQL相同",
-    "sql_sms": "SELECT smsContent ,expireTime  FROM `t_wd_sms_log` WHERE `smsContent` IS NOT NULL AND TIMEDIFF(NOW(), expireTime) < '00:10:00.00.000000' AND mobile= ?   ORDER BY expireTime DESC  LIMIT 1",
-    "sql_conn": [
-        "root:123456@tcp(192.168.1.1:3306)/micro_credit?timeout=5s&readTimeout=2s",
-        "root:123456@tcp(192.168.1.2:3306)/micro_credit?timeout=5s&readTimeout=2s",
-        "root:123456@tcp(192.168.1.3:3306)/micro_credit?timeout=5s&readTimeout=2s"       
+    "conn_dev1": [
+        "root:gategregjh3346@tcp(172.16.170.255:3306)/gateio?timeout=5s&readTimeout=2s"
+    ],
+    "conn_dev3": [
+        "root:gategregjh3346@tcp(172.16.170.255:3306)/gateio?timeout=5s&readTimeout=2s"
+    ],
+    "conn_dev5": [
+        "root:gategregjh3346@tcp(172.16.170.255:3306)/gateio?timeout=5s&readTimeout=2s"
     ]
 }
